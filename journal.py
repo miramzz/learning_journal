@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 import os
 import psycopg2
-from flask import Flask
 from contextlib import closing
+from flask import Flask
+from flask import g
+
 
 
 # creates a single db table called entries with 4 columns
@@ -44,6 +46,26 @@ def init_db():
         db.cursor().execute(DB_SCHEMA)
         db.commit()
 
+
+def get_database_connection():
+    db = getattr(g, 'db', None)
+    if db is None:
+        g.db = db = connect_db()
+    return db
+
+
+@app.teardown_request
+def teardown_request(exception):
+    db = getattr(g, 'db', None)
+    if db is not None:
+        if exception and isinstance(exception, psycopg2.Error):
+            # if there was a problem with the database, rollback any
+            # existing transaction
+            db.rollback()
+        else:
+            # otherwise, commit
+            db.commit()
+        db.close()
 
 if __name__ == '__main__':
     app.run(debug=True)
