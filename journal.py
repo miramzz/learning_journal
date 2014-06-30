@@ -80,7 +80,10 @@ def get_all_entries():
     cur = con.cursor()
     cur.execute(DB_ENTRIES_LIST)
     keys = ('id', 'title', 'text', 'created')
-    return [dict(zip(keys, row)) for row in cur.fetchall()]
+    my_list =  [dict(zip(keys, row)) for row in cur.fetchall()]
+    for item in my_list:
+        item['text'] = markdown_text['text']
+    return my_list
 
 
 def get_entry(entryID):
@@ -94,6 +97,10 @@ def update_entry(title, text, entryID):
     con = get_database_connection()
     cur = con.cursor()
     cur.execute(DB_UPDATE_ENTRY, [title, text, entryID])
+
+
+def markdown_text(user_input):
+    return markdown.markdown(user_input, extensions=['codehilite'])
 
 
 def do_login(username='', passwd=''):
