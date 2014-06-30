@@ -2,13 +2,17 @@
 import os
 import datetime
 import psycopg2
+import markdown
+
 from contextlib import closing
+from passlib.hash import pbkdf2_sha256
+
 from flask import Flask
 from flask import g
 from flask import render_template
 from flask import abort, request, redirect, url_for
 from flask import session
-from passlib.hash import pbkdf2_sha256
+
 
 
 # creates a single db table called entries with 4 columns
@@ -28,6 +32,16 @@ INSERT INTO entries (title, text, created) VALUES (%s, %s, %s)
 
 DB_ENTRIES_LIST = """
 SELECT id, title, text, created FROM entries ORDER BY created DESC
+"""
+
+DB_EDIT_ENTRY = """
+SELECT id, title, text, created FROM entries WHERE id = %s
+"""
+
+DB_UPDATE_ENTRY = """
+UPDATE entries
+SET title=%s, text=%s
+WHERE id=%s;
 """
 
 app = Flask(__name__)
