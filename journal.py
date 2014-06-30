@@ -83,6 +83,19 @@ def get_all_entries():
     return [dict(zip(keys, row)) for row in cur.fetchall()]
 
 
+def get_entry(entryID):
+    con = get_database_connection()
+    cur = con.cursor()
+    cur.execute(DB_EDIT_ENTRY, [entryID])
+    return cur.fetchone()
+
+
+def update_entry(title, text, entryID):
+    con = get_database_connection()
+    cur = con.cursor()
+    cur.execute(DB_UPDATE_ENTRY, [title, text, entryID])
+
+
 def do_login(username='', passwd=''):
     if username != app.config['ADMIN_USERNAME']:
         raise ValueError
