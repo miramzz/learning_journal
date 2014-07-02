@@ -133,6 +133,16 @@ def edit_entry(entryID=None):
     return render_template('edit.html', entry = my_entry)
 
 
+@app.route('/edit/<int:entryID>', methods=['POST'])
+def update(entryID=None):
+    try:
+        title = request.form['title']
+        text = request.form['text']
+        update_entry(title, text, entryID)
+    except psycopg2.Error:
+        abort(500)
+    return redirect(url_for('show_entries'))
+
 
 @app.route('/<int:entryID>', methods=['GET'])
 def view_entry(entryID=None):
