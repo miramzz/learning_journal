@@ -13,6 +13,9 @@ from flask import render_template
 from flask import abort, request, redirect, url_for
 from flask import session
 
+from pygments import highlight
+from pygments.lexers import PythonLexer
+from pygments.formatters import HtmlFormatter
 
 
 # creates a single db table called entries with 4 columns
@@ -148,12 +151,6 @@ def update(entryID=None):
 def view_entry(entryID=None):
     my_entry = get_entry(entryID)
     return render_template('entry.html', entry = my_entry)
-
-
-@app.route('/edit/<int:entryID>', methods=['GET'])
-def edit_entry(entryID=None):
-    my_entry = get_entry(entryID)
-    return render_template('edit.html', entry=my_entry)
 
 
 @app.route('/login', methods=['GET', 'POST'])
