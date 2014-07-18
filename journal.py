@@ -86,7 +86,7 @@ def get_all_entries():
     cur.execute(DB_ENTRIES_LIST)
     keys = ('id', 'title', 'text', 'created')
     list_ = [dict(zip(keys, row)) for row in cur.fetchall()]
-    for item in the list_:
+    for item in list_:
         item['text'] = markdown_text(item['text'])
     return
 
@@ -137,7 +137,7 @@ def add_entry():
 
 
 @app.route('/edit/<int:entryID>', methods=['GET'])
-def edit_entry(entryID=None);
+def edit_entry(entryID=None):
     my_entry = get_one_entry(entryID)
     return render_template('edit.html', entry=my_entry)
 
