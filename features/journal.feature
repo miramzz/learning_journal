@@ -13,6 +13,13 @@ Feature: Learning Journal
         When I click the edit button
         Then I see the edit entry form
 
+    Scenario: Author can save edits
+        Given an author
+        When I submit the edit form
+        Then I view the home page
+        And I see my updated entry
+
+
 
 
     As an author I want to edit my journal entries so I can fix errors.
