@@ -24,9 +24,9 @@ Feature: Learning Journal
         When I view the home page
         Then I don't see an edit button
 
+    Scenario: Author can input colorized code sample
+        Given text containing Markdown
+        And an existing entry
+        When I view home page
+        Then I see my code sample highlighted
 
-
-
-    As an author I want to edit my journal entries so I can fix errors.
-    As an author I want to use MarkDown to create and edit my entries so that I can format them nicely.
-    As an author I want to see colorized code samples in my journal entries so that I can more easily understand them.
