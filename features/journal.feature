@@ -19,6 +19,11 @@ Feature: Learning Journal
         Then I view the home page
         And I see my updated entry
 
+    Scenario: Non-Author user can not see edit button
+        Given non-author user
+        When I view the home page
+        Then I don't see an edit button
+
 
 
 
