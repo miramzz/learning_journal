@@ -11,9 +11,6 @@
     <label for="text">Text</label>
     <textarea name="text" id="text" rows="5" cols="80"></textarea>
   </div>
-  <div class="control_row">
-    <input type="submit" value="Share" name="Share"/>
-  </div>
 </form>
 </aside>
 {% endif %}
@@ -24,11 +21,6 @@
     <p class="dateline">{{ entry.created.strftime('%b. %d, %Y') }}
     <div class="entry_body">
       {{ entry.text|safe }}
-      {% if not session.logged_in %}
-        <a href="/"></a>
-      {% else %}
-        <a href="/edit/{{entry.id}}">Edit</a>
-      {% endif %}
     </div>
   </article>
   {% else %}
