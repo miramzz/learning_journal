@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
+{% if session.logged_in %}
 <form action="/edit/{{ entry[0] }}" method="POST" class="edit_entry">
   <div class="field">
     <label for="title">Title</label>
@@ -13,6 +14,7 @@
     <input type="submit" value="Update" name="Update"/>
   </div>
 </form>
+{% endif %}
 {% endblock %}
 
 
