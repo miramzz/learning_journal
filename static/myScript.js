@@ -1,16 +1,16 @@
 $(function(){
     $(".add_entry").on('submit', function(addEntry){
-        addEntry.preventDefault();
-        $.ajax("/add", {
+        $.ajax("{{ url_for('add_entry') }}", {
             type:'POST',
             data:$('form').serialize(),
             success: function(show_entries){
               show_entries.preventDefault();
-              $('.entry').html(entryData);
+              $('.edit').html(entryData);
               $('.add_entry').remove();
             }
         });
     });
+
 });
 
 $(function(){
